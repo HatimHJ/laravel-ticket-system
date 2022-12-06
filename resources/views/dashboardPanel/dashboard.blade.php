@@ -23,12 +23,10 @@
 
   <div class="py-12">
 
+    @if (count($tickets) > 0)
     <div class="flex max-w-5xl mx-auto  items-center justify-center  p-4">
-
       <table class=" ">
-
         <thead class="bg-gray-700 text-white">
-
           <tr>
             <th>Title</th>
             <th>Priority</th>
@@ -37,7 +35,6 @@
         </thead>
         @foreach ($tickets as $ticket)
         <tr>
-
           <td>
             <a href={{ route( 'singleTicket', ['id' => $ticket->id] ) }}>
 
@@ -50,6 +47,10 @@
         @endforeach
       </table>
     </div>
-
+    @else
+    <div class="flex max-w-5xl mx-auto  items-center justify-center  p-4">
+      <h2>no tickets...</h2>
+    </div>
+    @endif
   </div>
 </x-app-layout>

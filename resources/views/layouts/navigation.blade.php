@@ -18,7 +18,8 @@
         </div>
 
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-          <x-nav-link :href="route('ticket')" :active="request()->routeIs('ticket')">
+          <x-nav-link href="/ticket" :active="request()->routeIs('createTicket')">
+
             {{ __('Ticket') }}
           </x-nav-link>
         </div>
@@ -83,9 +84,9 @@
         {{ __('Dashboard') }}
       </x-responsive-nav-link>
 
-      <x-responsive-nav-link :href="route('ticket')" :active="request()->routeIs('ticket')">
+      {{-- <x-responsive-nav-link :href="route('ticket')" :active="request()->routeIs('ticket')">
         {{ __('Ticket') }}
-      </x-responsive-nav-link>
+      </x-responsive-nav-link> --}}
       @if (Auth::user()->role == 2)
       <x-responsive-nav-link :href="route('user')" :active="request()->routeIs('user')">
         {{ __('User') }}

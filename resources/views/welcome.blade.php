@@ -28,7 +28,7 @@
       @auth
       <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700  underline">Dashboard</a>
       @else
-      <a href="{{ route('login') }}" class="font-bold text-gray-900 bg-green-300 hover:bg-green-400 py-2 px-4 ">add ticket</a>
+      <a href="{{ route('login') }}" class="font-bold text-gray-100 bg-gray-800 hover:bg-gray-600 py-2 px-4 ">add ticket</a>
 
 
       {{-- @if (Route::has('register'))
