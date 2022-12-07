@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Ticket;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -64,7 +65,10 @@ class DashboardController extends Controller
             $ticket->agent == $user->empNumber ||
             $ticket->user_id == $user->id
             ) {
-                return view('dashboardPanel.showTicket', ['ticket' => $ticket]);
+                return view('dashboardPanel.showTicket', 
+                ['ticket' => $ticket,
+                'user' => User::where('id', $ticket->user_id)->first()
+            ]);
             }else{
                 return redirect('/dashboard');
             }
@@ -78,14 +82,34 @@ class DashboardController extends Controller
 
     public function createTicket()
     {
-        return view('dashboardPanel.createTicket');
+        if (Auth::user()->role != '1') {
+            return view('dashboardPanel.createTicket');
+        }
+        return redirect('/dashboard');
     }
 
     public function storeTicket(Request $request)
     {
-        dd($request);
-    }
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'image' => 'required',
+        ]);
+        if ($request->hasFile('image')) {    
+            $slug = Str::slug($request->title, '-');
+            $imageName = uniqid() . $slug . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            Ticket::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'user_id' => Auth::user()->id,
+                'image' => $imageName,
+            ]);
+        }
+        return redirect('/dashboard')->with('ticketCreated', 'Ticket Created Successfully..');
 
+    }
+    // mark ticket as completed [close ticket]
     public function updateTicket(Request $request, $id)
     {
         Ticket::where('id', $id)->update(['status' => 'closed']);
@@ -93,6 +117,7 @@ class DashboardController extends Controller
         ->with('msg', 'ticket closed');
     }
 
+    // display edit ticket form page
     public function manageTicket(Request $request, $id)
     {
         return view('dashboardPanel.editTicket', [
@@ -100,16 +125,29 @@ class DashboardController extends Controller
             'agents'  => User::where('role', '1')->get()
         ]);
     }
-
+    // process edit ticket form page
     public function editTicket(Request $request, $id)
     {
-        Ticket::where('id', $id)->update([
-            'title'       => $request->title,
-            'description' => $request->description,
-            'agent'       => $request->agent,
-            'status'      => $request->status,
-            'priority'    => $request->priority
+        // validate...
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'image' => 'required',
         ]);
+        // handle image 
+        if ($request->hasFile('image')) {
+            $slug = Str::slug($request->title, '-');
+            $imageName = uniqid() . $slug . '.' .  $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            Ticket::where('id', $id)->update([
+                'title'       => $request->title,
+                'description' => $request->description,
+                'image'       => $imageName,
+                'agent'       => $request->agent,
+                'status'      => $request->status,
+                'priority'    => $request->priority
+            ]);
+        }
         return redirect('ticket/'.$id)->with('msg', 'ticket updated...');
     }
 

@@ -23,7 +23,7 @@
 
   </div>
   <div class="flex shadow  sm:gap-0 bg-white mx-auto  max-w-5xl justify-center   p-4">
-    <form action="/ticket/{{$ticket->id}}" class="flex flex-col gap-4 w-full" method="post">
+    <form action="/ticket/{{$ticket->id}}" enctype="multipart/form-data" class="flex flex-col gap-4 w-full" method="post">
       @csrf
       @method('patch')
       <!-- Ticket title -->
@@ -38,7 +38,7 @@
       <div class="flex flex-col gap-2 mb-4">
         <label for="agent " class="text-gray-600">Ticket Agent</label>
         <select name="agent" id="agent">
-          <option value="null">N/A</option>
+          <option value="">N/A</option>
           @foreach ($agents as $agent)
           <option value="{{$agent->empNumber}}">{{$agent->name}}</option>
           @endforeach
@@ -89,6 +89,15 @@
       <div class="flex flex-col gap-2 mb-4">
         <label for="description " class="text-gray-600">Ticket Description</label>
         <textarea name="description" id="description" cols="30" rows="10">{{$ticket->description}}</textarea>
+        @error('description')
+        <p>{{$message}}</p>
+        @enderror
+      </div>
+      <!-- Ticket Image -->
+      <div class="flex flex-col gap-2 mb-4 w-64">
+        <label for="image" class="text-gray-600">Ticket Image</label>
+        <input type="file" id="image" name="image">
+        <img src="{{asset('images/'. $ticket->image)}}" alt="">
         @error('description')
         <p>{{$message}}</p>
         @enderror

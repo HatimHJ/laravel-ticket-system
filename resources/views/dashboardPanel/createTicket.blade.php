@@ -20,7 +20,7 @@
 
   </div>
   <div class="flex shadow  sm:gap-0 bg-white mx-auto  max-w-5xl justify-center   p-4">
-    <form action="/ticket" class="flex flex-col gap-4 w-full" method="post">
+    <form action="/ticket" class="flex flex-col gap-4 w-full" method="post" enctype="multipart/form-data">
       @csrf
       <!-- Ticket title -->
       <div class="flex flex-col gap-2 mb-4 w-full">
@@ -38,8 +38,17 @@
         <p>{{$message}}</p>
         @enderror
       </div>
+      <!-- Ticket Image -->
       <div class="flex flex-col gap-2 mb-4">
-        <button class="text-sm bg-gray-900 text-white px-4 py-2 border border-transparent rounded-md font-semibold uppercase tracking-widest hover:bg-gray-700  focus:outline-none  transition">Update</button>
+        <label for="description " class="text-gray-600">Ticket Image</label>
+        <input type="file" name="image">
+        @error('image')
+        <p>{{$message}}</p>
+        @enderror
+      </div>
+      {{-- Send Button --}}
+      <div class="flex flex-col gap-2 mb-4">
+        <button class="text-sm bg-gray-900 text-white px-4 py-2 border border-transparent rounded-md font-semibold uppercase tracking-widest hover:bg-gray-700  focus:outline-none  transition">Add Ticket</button>
       </div>
     </form>
   </div>

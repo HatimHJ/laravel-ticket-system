@@ -8,7 +8,6 @@
   </x-slot>
 
 
-
   <div class="py-12 flex  gap-6 max-w-5xl mx-auto px-8 sm:px-0 flex-col items-start container ">
     @if (session()->has('msg'))
 
@@ -20,12 +19,23 @@
     </div>
     @endif
 
+    @if ($ticket->image)
+    <div class="image w-96 mb-4 bg-gray-500 mx-auto">
+      <img src="{{asset('images/'.$ticket->image)}}" alt="">
+
+    </div>
+    @endif
     <div class="flex flex-col shadow w-full mx-auto  sm:gap-0 bg-white items-start justify-between  p-4">
 
+      <div class="flex justify-between items-start w-full">
 
-      <h2 class="font-semibold mb-6 text-xl text-gray-800 leading-tight">
-        {{ $ticket->title }}
-      </h2>
+        <h2 class="font-semibold mb-6 text-xl text-gray-800 leading-tight">
+          {{ $ticket->title }}
+        </h2>
+        <h5 class="font-semibold mb-6 text-xl bg-gray-800 text-white px-2 leading-tight">
+          {{ $user->name }}
+        </h5>
+      </div>
 
       <div class="flex gap-8 sm:gap-0 w-full items-start justify-between">
         <div class="detail flex flex-col">
@@ -46,12 +56,14 @@
     </div>
 
     <div class="flex items-end justify-between gap-4 ">
+      @if (Auth::user()->role == 2 || $ticket->user_id == Auth::user()->id)
       @if ($ticket->status == 'open')
       <form action="/ticket/{{$ticket->id}}" method="post">
         @csrf
         @method('put')
         <button class="p-2 bg-blue-400 hover:bg-blue-600 transition capitalize  text-white">mark as done</button>
       </form>
+      @endif
       @endif
       @if (Auth::user()->role == 2)
       <a href="/ticket/{{$ticket->id}}/edit" class="text-blue-500 border border-blue-500 font-semibold  p-2 capitalize">edit Ticket</a>

@@ -18,8 +18,7 @@ class TicketFactory extends Factory
         return [
             'title' => fake()->sentence(),
             'description' => fake()->paragraph(),
-            'image' => 'images/placeholder.jpg',
-            'user_id' => fake()->numberBetween(1, 5),
+            'user_id' => '3',
             
         ];
     }
