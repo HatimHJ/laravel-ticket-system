@@ -9,7 +9,7 @@
 
 ## home page
 
-[home image](./images/home.png)
+![home image](./images/home.png)
 
 ## admin page
 
