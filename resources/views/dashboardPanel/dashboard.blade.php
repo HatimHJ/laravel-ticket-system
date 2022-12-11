@@ -29,8 +29,6 @@
       <p>{{session()->get('ticketCreated')}}</p>
     </div>
     @endif
-
-
     @if (count($tickets) > 0)
     <div class="flex max-w-5xl mx-auto  items-center justify-center  p-4">
       <table class=" ">

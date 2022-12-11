@@ -84,9 +84,10 @@
         {{ __('Dashboard') }}
       </x-responsive-nav-link>
 
-      {{-- <x-responsive-nav-link :href="route('ticket')" :active="request()->routeIs('ticket')">
+      <x-responsive-nav-link :href="route('createTicket')" :active="request()->routeIs('ticket')">
         {{ __('Ticket') }}
-      </x-responsive-nav-link> --}}
+      </x-responsive-nav-link>
+
       @if (Auth::user()->role == 2)
       <x-responsive-nav-link :href="route('user')" :active="request()->routeIs('user')">
         {{ __('User') }}
