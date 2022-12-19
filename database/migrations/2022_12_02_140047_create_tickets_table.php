@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('description');
-            $table->string('categories')->nullable();
             $table->string('image')->nullable();
+            $table->string('categories')->nullable();
             $table->string('agent')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('priority')->default('low');

@@ -24,9 +24,16 @@
           </x-nav-link>
         </div>
         @if (Auth::user()->role == 2)
+        {{-- users --}}
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
-            {{ __('User') }}
+            {{ __('Users') }}
+          </x-nav-link>
+        </div>
+        {{-- categories --}}
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+          <x-nav-link href="/categories" :active="request()->routeIs('categories')">
+            {{ __('Categories') }}
           </x-nav-link>
         </div>
         @endif
@@ -92,6 +99,12 @@
       <x-responsive-nav-link :href="route('user')" :active="request()->routeIs('user')">
         {{ __('User') }}
       </x-responsive-nav-link>
+
+
+      <x-responsive-nav-link href="/categories" :active="request()->routeIs('categories')">
+        {{ __('Categories') }}
+      </x-responsive-nav-link>
+
       @endif
     </div>
 
