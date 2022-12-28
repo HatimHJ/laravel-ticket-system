@@ -19,7 +19,7 @@
 
     @endif
     <div class="flex flex-col max-w-5xl mx-auto  items-start justify-center  p-4">
-      <a href="categories/create" class="bg-emerald-700 mb-4 text-white font-bold p-2">Add Category</a>
+      <a href="department/create" class="bg-emerald-700 mb-4 text-white font-bold p-2">Add Category</a>
       <table class=" ">
         <thead class="bg-gray-700 text-white">
           <tr>
@@ -28,18 +28,18 @@
             <th>delete</th>
           </tr>
         </thead>
-        @foreach ($categories as $category)
+        @foreach ($department as $category)
         <tr>
           <td>
             {{$category->name}}
           </td>
           <td>
-            <a href='categories/{{$category->id}}/edit'>
+            <a href='department/{{$category->id}}/edit'>
               <button class="bg-yellow-500 text-white font-bold p-2">Edit</button>
             </a>
           </td>
           <td>
-            <form action="categories/{{$category->id}}" method="POST">
+            <form action="department/{{$category->id}}" method="POST">
               @csrf
               @method('DELETE')
               <button class="bg-red-400 text-white font-bold p-2">Delete</button>

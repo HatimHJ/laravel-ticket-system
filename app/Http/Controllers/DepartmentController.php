@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class CategoriesController extends Controller
     public function index()
     {
         //
-        return view('categories.index')->with(['categories' => Category::all()]);
+        return view('dashboardPanel.department.index')->with(['department' => Category::all()]);
     }
 
     /**
@@ -26,7 +26,7 @@ class CategoriesController extends Controller
     public function create()
     {
         //
-        return view('categories.create');
+        return view('dashboardPanel.department.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class CategoriesController extends Controller
         Category::create([
             'name' => $request->name
         ]);
-        return redirect('/categories')->with(['message' => 'category created successfully...']);
+        return redirect('/department')->with(['message' => 'category created successfully...']);
 
     }
 
@@ -65,7 +65,7 @@ class CategoriesController extends Controller
     public function edit($id)
     {
         //
-        return view('categories.edit', ['category' => Category::findOrFail($id)]);
+        return view('dashboardPanel.department.edit', ['category' => Category::findOrFail($id)]);
 
     }
 
@@ -82,7 +82,7 @@ class CategoriesController extends Controller
         $category->update([
             'name' => $request->name
         ]);
-        return redirect('/categories')->with(['message' => 'category updated successfully...']);
+        return redirect('/department')->with(['message' => 'category updated successfully...']);
     }
 
     /**

@@ -18,7 +18,8 @@
         </div>
 
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-          <x-nav-link href="/ticket" :active="request()->routeIs('createTicket')">
+          <x-nav-link href="/ticket" active="ticket/create">
+
 
             {{ __('Ticket') }}
           </x-nav-link>
@@ -30,10 +31,10 @@
             {{ __('Users') }}
           </x-nav-link>
         </div>
-        {{-- categories --}}
+        {{-- department --}}
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-          <x-nav-link href="/categories" :active="request()->routeIs('categories')">
-            {{ __('Categories') }}
+          <x-nav-link href="/department" :active="request()->routeIs('department')">
+            {{ __('department') }}
           </x-nav-link>
         </div>
         @endif
@@ -91,7 +92,8 @@
         {{ __('Dashboard') }}
       </x-responsive-nav-link>
 
-      <x-responsive-nav-link :href="route('createTicket')" :active="request()->routeIs('ticket')">
+      <x-responsive-nav-link href="/ticket/create" :active="request()->routeIs('ticket')">
+
         {{ __('Ticket') }}
       </x-responsive-nav-link>
 
@@ -101,8 +103,8 @@
       </x-responsive-nav-link>
 
 
-      <x-responsive-nav-link href="/categories" :active="request()->routeIs('categories')">
-        {{ __('Categories') }}
+      <x-responsive-nav-link href="/department" :active="request()->routeIs('department')">
+        {{ __('department') }}
       </x-responsive-nav-link>
 
       @endif

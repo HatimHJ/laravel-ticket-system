@@ -45,10 +45,9 @@
     @if (Route::has('login'))
     <div class=" px-6 py-4 sm:block">
       @auth
-      <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700  underline">Dashboard</a>
+      <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700  underline">لوحة التحكم</a>
       @else
-      <a href="{{ route('login') }}" class="font-bold text-gray-100 bg-gray-800 hover:bg-gray-600 py-2 px-4 ">add ticket</a>
-
+      <a href="{{ route('login') }}" class="font-bold text-gray-100 bg-gray-800 hover:bg-gray-600 py-2 px-4 ">تسجيل الدخول</a>
       @endauth
     </div>
     @endif

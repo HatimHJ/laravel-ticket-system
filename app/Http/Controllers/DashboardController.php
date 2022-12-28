@@ -14,7 +14,10 @@ class DashboardController extends Controller
     public function dashboard()
     {
         if (Auth::user()->role == 2) {
-            return view('dashboardPanel.dashboard', ['tickets' => Ticket::all()]);
+            return view('dashboardPanel.dashboard', [
+                'tickets' => Ticket::latest()->take(3)->get(),
+                'users' => User::latest()->take(3)->get()
+            ]);
         }else if(Auth::user()->role == 1){        
             return view('dashboardPanel.dashboard', ['tickets' =>Ticket::where('agent', Auth::user()->empNumber)->get()]);
         }else{
@@ -24,36 +27,7 @@ class DashboardController extends Controller
     }
 
     
-    // user
-    public function user()
-    {
-        return view('dashboardPanel.user', ['users' => User::all()]);
-    }
 
-    public function showUser($id)
-    {
-        return view('dashboardPanel.showUser', ['user' => User::find($id)]);
-    }
-
-    public function updateUser(Request $request, $id)
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'empNumber' => ['required'],
-            'email' => ['string', 'email', 'max:255', ],
-            'role' => ['required'],
-            'phone' => ['string', 'max:10'],
-        ]);
-        $formFields = [
-            'name' => $request->name,
-            'empNumber' => $request->empNumber,
-            'email' => $request->email,
-            'role' => $request->role,
-            'phone' => $request->phone,
-        ];
-
-        User::where('id', $id)->update($formFields);
-        return redirect('/user')->with('msg', 'user changed...');
-    }
+    
 
 }

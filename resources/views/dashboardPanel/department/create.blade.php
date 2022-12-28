@@ -19,7 +19,8 @@
 
   </div>
   <div class="flex shadow  sm:gap-0 bg-white mx-auto  max-w-2xl justify-center   p-4">
-    <form action="/categories" class="flex flex-col gap-4 w-full" method="post">
+    <form action="/department" class="flex flex-col gap-4 w-full" method="post">
+
       @csrf
       <div class="flex flex-col gap-2 mb-4 w-full">
         <label for="name " class="text-gray-600">category name</label>
@@ -29,7 +30,8 @@
         @enderror
       </div>
       <div class="flex flex-col gap-2 mb-4">
-        <button class="text-sm bg-gray-900 text-white px-4 py-2 border border-transparent rounded-md font-semibold uppercase tracking-widest hover:bg-gray-700  focus:outline-none  transition">Add Category</button>
+        <button class="text-sm bg-gray-900 text-white px-4 py-2 border border-transparent rounded-md font-semibold uppercase tracking-widest hover:bg-gray-700  focus:outline-none  transition">Add department</button>
+
       </div>
     </form>
   </div>

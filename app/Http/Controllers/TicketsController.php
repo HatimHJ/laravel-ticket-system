@@ -10,37 +10,29 @@ use Illuminate\Support\Facades\Auth;
 
 class TicketsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        
+        if (Auth::user()->role == 2) {
+            return view('dashboardPanel.ticket.index', ['tickets' => Ticket::all()]);
+        }else if(Auth::user()->role == 1){        
+            return view('dashboardPanel.ticket.index', ['tickets' =>Ticket::where('agent', Auth::user()->empNumber)->get()]);
+        }else{
+            return view('dashboardPanel.ticket.index', ['tickets' =>auth()->user()->Ticket()->get()]);
+        }
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         // if agent return to dashboard else [user|admin] show create ticket form
         if (Auth::user()->role != '1') {
-            return view('dashboardPanel.createTicket');
+            return view('dashboardPanel.ticket.create');
         }
         return redirect('/dashboard');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
@@ -64,12 +56,7 @@ class TicketsController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
@@ -79,7 +66,7 @@ class TicketsController extends Controller
             $ticket->agent == $user->empNumber ||
             $ticket->user_id == $user->id
             ) {
-                return view('dashboardPanel.showTicket', 
+                return view('dashboardPanel.ticket.show', 
                 ['ticket' => $ticket,
                 'user' => User::where('id', $ticket->user_id)->first()
             ]);
@@ -88,28 +75,17 @@ class TicketsController extends Controller
             }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
-        return view('dashboardPanel.editTicket', [
+        return view('dashboardPanel.ticket.edit', [
             'ticket' => Ticket::find($id),
             'agents'  => User::where('role', '1')->get()
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         //
@@ -132,25 +108,23 @@ class TicketsController extends Controller
                     'priority'    => $request->priority
                 ]);
         }
-        return redirect('ticket/'.$id)->with('msg', 'ticket updated...');
+        return redirect('/dashboard/ticket/'.$id)->with('msg', 'ticket updated...');
     }
 
     // mark ticket as completed [close ticket]
     public function closeTicket(Request $request, $id)
     {
         Ticket::where('id', $id)->update(['status' => 'closed']);
-        return redirect('ticket/'.$id)
+        return redirect('/dashboard/ticket/'.$id)
         ->with('msg', 'ticket closed');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         //
+        Ticket::where('id', $id)->delete();
+        return redirect('/dashboard/ticket')
+        ->with('msg', 'ticket deleted...');
     }
 }
