@@ -11,7 +11,7 @@
       <label for="title " class="text-gray-600">عنوان التذكرة</label>
       <input class="w-full" id="title" type="text" name="title" value="{{$ticket->title}}" required class="border border-gray-200">
       @error('title')
-      <p>{{$message}}</p>
+      <p class="text-red-400">{{$message}}</p>
       @enderror
     </div>
     <!-- Ticket Agent -->
@@ -26,7 +26,7 @@
       {{-- <input class="w-full" id="agent" type="text" name="agent" value="{{$ticket->agent ? $ticket->agent : 'N/A'}}" class="border border-gray-200"> --}}
 
       @error('agent')
-      <p>{{$message}}</p>
+      <p class="text-red-400">{{$message}}</p>
       @enderror
     </div>
     <!-- Ticket Priority -->
@@ -43,7 +43,7 @@
         </div>
       </div>
       @error('priority')
-      <p>{{$message}}</p>
+      <p class="text-red-400">{{$message}}</p>
       @enderror
     </div>
     <!-- Ticket Status -->
@@ -60,7 +60,7 @@
         </div>
       </div>
       @error('status')
-      <p>{{$message}}</p>
+      <p class="text-red-400">{{$message}}</p>
       @enderror
     </div>
     <!-- Ticket Description -->
@@ -68,7 +68,7 @@
       <label for="description " class="text-gray-600">وصف التذكرة</label>
       <textarea name="description" id="description" cols="30" rows="10">{{$ticket->description}}</textarea>
       @error('description')
-      <p>{{$message}}</p>
+      <p class="text-red-400">{{$message}}</p>
       @enderror
     </div>
     <!-- Ticket Image -->
@@ -77,7 +77,7 @@
       <input type="file" id="image" name="image">
       <img src="{{asset('images/'. $ticket->image)}}" alt="">
       @error('image')
-      <p>{{$message}}</p>
+      <p class="text-red-400">{{$message}}</p>
       @enderror
     </div>
     <div class="flex flex-col gap-2 mb-4">

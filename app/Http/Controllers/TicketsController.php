@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Ticket;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Requests\TicketRequest;
 use Illuminate\Support\Facades\Auth;
 
 class TicketsController extends Controller
@@ -33,14 +34,10 @@ class TicketsController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(TicketRequest $request)
     {
         //
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'image' => 'required',
-        ]);
+        
         if ($request->hasFile('image')) {    
             $slug = Str::slug($request->title, '-');
             $imageName = uniqid() . $slug . '.' . $request->image->extension();
@@ -88,7 +85,6 @@ class TicketsController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
         $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -122,7 +118,6 @@ class TicketsController extends Controller
 
     public function destroy($id)
     {
-        //
         Ticket::where('id', $id)->delete();
         return redirect('/dashboard/ticket')
         ->with('msg', 'ticket deleted...');
